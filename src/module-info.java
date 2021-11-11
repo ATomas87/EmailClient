@@ -4,6 +4,8 @@ module EmailClient {
      requires javafx.graphics;
      requires javafx.web;
 
-     opens com.test;
+     opens com.antonio;
+     opens com.antonio.view;
+     opens com.antonio.controller;
 
 }
