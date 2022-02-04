@@ -1,6 +1,8 @@
 package com.antonio.controller;
 
 import com.antonio.EmailManager;
+import com.antonio.controller.services.LoginService;
+import com.antonio.model.EmailAccount;
 import com.antonio.view.ViewFactory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -26,9 +28,37 @@ public class LoginWindowController extends BaseController {
     @FXML
     void loginButtonAction() {
         System.out.println("loginButtonAction!!");
-        viewFactory.showMainWindow();
-        Stage stage = (Stage) errorLabel.getScene().getWindow();
-        viewFactory.closeStage(stage);
+        if (fieldsAreValid()) {
+            EmailAccount emailAccount = new EmailAccount(emailAddressField.getText(), passwordField.getText());
+            LoginService loginService = new LoginService(emailAccount, emailManager);
+            loginService.start();
+            loginService.setOnSucceeded(event -> {
+                EmailLoginResult emailLoginResult = loginService.getValue();
+
+                switch (emailLoginResult) {
+                    case SUCCESS:
+                        System.out.println("Login successfull" + emailAccount);
+                        viewFactory.showMainWindow();
+                        Stage stage = (Stage) errorLabel.getScene().getWindow();
+                        viewFactory.closeStage(stage);
+                        return;
+                }
+            });
+
+        }
+    }
+
+    private boolean fieldsAreValid() {
+        if (emailAddressField.getText().isEmpty()) {
+            errorLabel.setText("Please fill email");
+            return false;
+        }
+        if (passwordField.getText().isEmpty()) {
+            errorLabel.setText("Please fill password");
+            return false;
+        }
+
+        return true;
     }
 
 }
