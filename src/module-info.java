@@ -9,5 +9,6 @@ module EmailClient {
      opens com.antonio;
      opens com.antonio.view;
      opens com.antonio.controller;
+     opens com.antonio.model;
 
 }
