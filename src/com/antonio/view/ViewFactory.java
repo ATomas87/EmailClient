@@ -1,10 +1,7 @@
 package com.antonio.view;
 
 import com.antonio.EmailManager;
-import com.antonio.controller.BaseController;
-import com.antonio.controller.LoginWindowController;
-import com.antonio.controller.MainWindowController;
-import com.antonio.controller.OptionsWindowController;
+import com.antonio.controller.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -63,8 +60,14 @@ public class ViewFactory {
     }
 
     public void showOptionsWindow() {
-        System.out.println("options windows called");
+        System.out.println("options window called");
         BaseController controller = new OptionsWindowController(emailManager, this, "OptionsWindow.fxml");
+        initializeStage(controller);
+    }
+
+    public void showComposeMessageWindow() {
+        System.out.println("compose message window called");
+        BaseController controller = new ComposeMessageController(emailManager, this, "ComposeMessageWindow.fxml");
         initializeStage(controller);
     }
 

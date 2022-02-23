@@ -56,6 +56,10 @@ public class EmailTreeItem<String> extends TreeItem<String> {
         unreadMessagesCount++;
         updateName();
     }
+    public void decrementUnreadMessagesCount() {
+        unreadMessagesCount--;
+        updateName();
+    }
 
     private void updateName() {
         if (unreadMessagesCount > 0) {
